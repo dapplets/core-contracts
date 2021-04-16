@@ -5,9 +5,9 @@ impl Contract {
     #[payable]
     pub fn nft_mint(&mut self, token_id: TokenId, metadata: TokenMetadata) {
         let initial_storage_usage = env::storage_usage();
-        self.assert_owner();
+        //self.assert_owner();
         let token = Token {
-            owner_id: self.owner_id.clone(),
+            owner_id: env::predecessor_account_id(),
             approved_account_ids: Default::default(),
             next_approval_id: 0,
         };
