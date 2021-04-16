@@ -35,6 +35,13 @@ pub trait NonFungibleTokenCore {
     fn nft_total_supply(&self) -> U64;
 
     fn nft_token(&self, token_id: TokenId) -> Option<JsonToken>;
+
+    fn nft_tokens_for_owner(
+        &self,
+        account_id: ValidAccountId,
+        from_index: Option<String>, // default: 0
+        limit: Option<U64>, // default: unlimited (could fail due to gas limit)
+    ) -> Vec<TokenId>;
 }
 
 #[ext_contract(ext_non_fungible_token_receiver)]
@@ -236,6 +243,19 @@ impl NonFungibleTokenCore for Contract {
             })
         } else {
             None
+        }
+    }
+
+    fn nft_tokens_for_owner(
+        &self,
+        account_id: ValidAccountId,
+        from_index: Option<String>, // default: 0
+        limit: Option<U64>, // default: unlimited (could fail due to gas limit)
+    ) -> Vec<TokenId> {
+        if self.tokens_per_owner.contains_key(&account_id.as_ref()) {
+            return self.tokens_per_owner.get(&account_id.as_ref()).unwrap().to_vec();
+        } else {
+            return Vec::new();
         }
     }
 }
