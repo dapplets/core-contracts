@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::collections::{LazyOption, LookupMap, UnorderedMap, UnorderedSet};
+use near_sdk::collections::{LazyOption, LookupMap, LookupSet, UnorderedMap, UnorderedSet};
 use near_sdk::json_types::{Base64VecU8, ValidAccountId, U64};
 use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::{
@@ -37,6 +37,8 @@ pub struct Contract {
     pub extra_storage_in_bytes_per_token: StorageUsage,
 
     pub metadata: LazyOption<NFTMetadata>,
+
+    pub minters: LookupSet<AccountId>
 }
 
 /// Helper structure to for keys of the persistent collections.
@@ -47,6 +49,7 @@ pub enum StorageKey {
     TokensById,
     TokenMetadataById,
     NftMetadata,
+    Minters
 }
 
 #[near_bindgen]
@@ -65,6 +68,7 @@ impl Contract {
                 StorageKey::NftMetadata.try_to_vec().unwrap(),
                 Some(&metadata),
             ),
+            minters: LookupSet::new(StorageKey::Minters.try_to_vec().unwrap()),
         };
 
         this.measure_min_token_storage_cost();

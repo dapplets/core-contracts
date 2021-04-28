@@ -5,7 +5,7 @@ impl Contract {
     #[payable]
     pub fn nft_mint(&mut self, token_id: TokenId, metadata: TokenMetadata, owner_id: ValidAccountId) {
         //let initial_storage_usage = env::storage_usage();
-        //self.assert_owner();
+        self.assert_minter();
         let token = Token {
             owner_id: owner_id.into(),
             approved_account_ids: Default::default(),
@@ -23,5 +23,19 @@ impl Contract {
         //     self.extra_storage_in_bytes_per_token + new_token_size_in_bytes;
 
         //refund_deposit(required_storage_in_bytes);
+    }
+
+    pub fn add_minter(&mut self, minter_id: ValidAccountId) {
+        self.assert_owner();
+        if (!self.minters.contains(&minter_id.as_ref())) {
+            self.minters.insert(&minter_id.as_ref());
+        }
+    }
+
+    pub fn remove_minter(&mut self, minter_id: ValidAccountId) {
+        self.assert_owner();
+        if (self.minters.contains(&minter_id.as_ref())) {
+            self.minters.remove(&minter_id.as_ref());
+        }
     }
 }

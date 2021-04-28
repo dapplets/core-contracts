@@ -74,6 +74,13 @@ impl Contract {
         );
     }
 
+    pub(crate) fn assert_minter(&self) {
+        assert!(
+            self.minters.contains(&env::predecessor_account_id()),
+            "Minter's method"
+        );
+    }
+
     pub(crate) fn internal_add_token_to_owner(
         &mut self,
         account_id: &AccountId,
