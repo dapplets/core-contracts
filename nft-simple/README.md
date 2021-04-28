@@ -21,7 +21,7 @@ near call dev-1619612403093-1786669 remove_minter '{"minter_id":"buidl.testnet"}
 ### Mint NFT
 
 ```
-near call dev-1619612403093-1786669 nft_mint '{"token_id":"1","metadata":{"title":"Certificate of Excellence","description":"alsakhaev.near has successfully completed the requirements to be recognized as NEAR Certified Developer Level 1.","media":"https://swarm.dapplets.org/files/08c487004be2c82d355f4069efd7b907ab5f909987eb02567fc5ac586f4ed52e","media_hash":"PZXDIPCYku38KBqsKdVqoWrQO2y6/VpRDeUPxYtYIGQ=","copies":"1","issued_at":"2021-04-15"},"owner_id":"buidl.testnet"}' --accountId=buidl.testnet
+near call dev-1619612403093-1786669 nft_mint '{"token_id":"0","metadata":{"title":"Certificate of Excellence","description":"alsakhaev.near has successfully completed the requirements to be recognized as NEAR Certified Developer Level 1.","media":"https://swarm.dapplets.org/files/08c487004be2c82d355f4069efd7b907ab5f909987eb02567fc5ac586f4ed52e","media_hash":"PZXDIPCYku38KBqsKdVqoWrQO2y6/VpRDeUPxYtYIGQ=","copies":"1","issued_at":"2021-04-15"},"owner_id":"buidl.testnet"}' --accountId=buidl.testnet
 ```
 
 ### Get metadata of NFT-Contract
